@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,26 +5,23 @@
   <script src="https://statics.teams.cdn.office.net/sdk/v1.11.0/js/MicrosoftTeams.min.js"></script>
 </head>
 <body>
-  <h2>Teams RSC Token Debug</h2>
+  <h2>Teams RSC Token Debug (v1.11)</h2>
   <button onclick="getToken()">Get Graph Token</button>
   <pre id="output"></pre>
 
   <script>
-    microsoftTeams.app.initialize().then(() => {
-      document.getElementById("output").textContent = "✅ App initialized in Teams context.\nClick the button to request a token.";
-    }).catch(err => {
-      document.getElementById("output").textContent = "❌ Initialization error: " + err;
-    });
+    microsoftTeams.initialize();
+
+    document.getElementById("output").textContent = "✅ Teams SDK initialized. Click button to request token.";
 
     function getToken() {
       microsoftTeams.authentication.getAuthToken({
-        successCallback: (token) => {
-          document.getElementById("output").textContent = "✅ Token acquired:\n\n" + token;
+        successCallback: function(token) {
+          document.getElementById("output").textContent = "✅ Token acquired:\\n\\n" + token;
         },
-        failureCallback: (error) => {
-          document.getElementById("output").textContent = "❌ Error getting token:\n\n" + JSON.stringify(error, null, 2);
-        },
-        resources: ["https://graph.microsoft.com"]
+        failureCallback: function(error) {
+          document.getElementById("output").textContent = "❌ Error getting token:\\n\\n" + JSON.stringify(error, null, 2);
+        }
       });
     }
   </script>
