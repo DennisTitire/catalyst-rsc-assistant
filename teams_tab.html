@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Teams RSC Token Debug</title>
+  <script src="https://statics.teams.cdn.office.net/sdk/v1.11.0/js/MicrosoftTeams.min.js"></script>
+</head>
+<body>
+  <h2>RSC Token Debug – Catalyst Assistant</h2>
+  <button id="getTokenBtn">Get Graph Token</button>
+  <pre id="output"></pre>
+
+  <script>
+    microsoftTeams.initialize();
+
+    document.getElementById("output").textContent = "✅ Teams SDK initialized. Click the button to get token.";
+
+    document.getElementById("getTokenBtn").addEventListener("click", function () {
+      microsoftTeams.authentication.getAuthToken({
+        successCallback: function (token) {
+          document.getElementById("output").textContent = "✅ Token acquired:\\n\\n" + token;
+        },
+        failureCallback: function (error) {
+          document.getElementById("output").textContent = "❌ Error getting token:\\n\\n" + JSON.stringify(error, null, 2);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
